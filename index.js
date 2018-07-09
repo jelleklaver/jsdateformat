@@ -94,7 +94,7 @@ exports.formatDate = function(date, dateFormat) {
         12: 'December',
     }
 
-    var F = monthNames[j];      // Month of the year (text)
+    var F = monthNames[n];      // Month of the year (text)
     var M = F.substr(0,3);      // Short month of the year (text)
 
     /**
