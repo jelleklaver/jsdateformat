@@ -6,7 +6,7 @@
  * j	Day of the month without leading zeros                     1 to 31
  * l	A full textual representation of the day of the week       Sunday through Saturday
  * N	ISO-8601 numeric representation of the day of the week     1 (Monday) through 7 (Sunday)
- * -----S	English ordinal suffix for the day of the month, 2 characters	st, nd, rd or th. Works well with j
+ * S	English ordinal suffix for the day of the month, 2 characters	st, nd, rd or th. Works well with j
  * w	Numeric representation of the day of the week              0 (Sunday) through 6 (Saturday)
  * -----z	The day of the year (starting from 0)	               0 through 365
  *
@@ -18,7 +18,7 @@
  * m	Numeric representation of a month, with leading zeros      01 through 12
  * M	A short textual representation of a month, three letters   Jan through Dec
  * n	Numeric representation of a month, without leading zeros   1 through 12
- * ------t	Number of days in the given month	                   28 through 31
+ * t	Number of days in the given month	                       28 through 31
  *
  * Year
  * ------L	Whether it's a leap year	                           1 (leap year), 0 otherwise.
@@ -47,6 +47,21 @@ exports.formatDate = function(date, dateFormat) {
      */
     var j = date.getDate();     // Day of the month (1 - 31)
     var d = j < 10 ? '0'+j : j; // Day of the month (01 - 31)
+
+    var ordinalSuffixes = {
+        0: 'th',
+        1: 'st',
+        2: 'nd',
+        3: 'rd',
+        4: 'th',
+        5: 'th',
+        6: 'th',
+        7: 'th',
+        8: 'th',
+        9: 'th',
+    }
+
+    var S = ordinalSuffixes[j % 10];    // Ordinal suffix based on day of the month
 
     /**
      * Year
@@ -94,8 +109,9 @@ exports.formatDate = function(date, dateFormat) {
         12: 'December',
     }
 
-    var F = monthNames[n];      // Month of the year (text)
-    var M = F.substr(0,3);      // Short month of the year (text)
+    var F = monthNames[n];                  // Month of the year (text)
+    var M = F.substr(0,3);                  // Short month of the year (text)
+    var t = new Date(Y, n, 0).getDate();    // Get the number of days in current month
 
     /**
      * Time
@@ -120,11 +136,13 @@ exports.formatDate = function(date, dateFormat) {
         'j': j,
         'l': l,
         'N': N,
+        'S': S,
         'w': w,
         'F': F,
         'm': m,
         'M': M,
         'n': n,
+        't': t,
         'Y': Y,
         'y': y,
         'G': G,
