@@ -14,7 +14,8 @@
     "format",
     "date",
     "dateformat",
-    "php"
+    "php",
+    "tiny"
   ],
   "author": "Jelle Klaver <info@jelleklaver.com> (jelleklaver.com)",
   "license": "ISC",
