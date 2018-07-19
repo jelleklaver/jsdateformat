@@ -1,11 +1,19 @@
+/**
+ * Obviously import the functional js file
+ */
 var jsdateformat = require('./index');
 
+// Results object to count tests and failures
 var results = {
     total: 0,
     bad: 0
 }
 
-
+/**
+ * The main test function which executes all tests.
+ * This function should be called for an overall test.
+ * The results are shown in the console.
+ */
 function test() {
     console.log('Tests starting....');
 
@@ -31,6 +39,12 @@ function test() {
     testFormatDate(defaultTestDate, 'i', '05');
     testFormatDate(defaultTestDate, 's', '00');
 
+    testFormatDateNL(defaultTestDate, 'D', 'Woe');
+    testFormatDateNL(defaultTestDate, 'jS', '1ste');
+    testFormatDateNL(defaultTestDate, 'l', 'Woensdag');
+    testFormatDateNL(defaultTestDate, 'F', 'Maart');
+    testFormatDateNL(defaultTestDate, 'M', 'Maa');
+
     console.log('Tested: ' + results.total);
     console.log('Passed: ' + (results.total - results.bad));
     if(results.bad !== 0) {
@@ -40,6 +54,15 @@ function test() {
     }
 }
 
+/**
+ * Tests the formatDate function according to multi-input
+ * and an expected result. Failures are shown in the console.
+ *
+ * @var Date inputDate
+ * @var String inputString
+ * @var String expected
+ *
+ */
 function testFormatDate(inputDate, inputString, expected) {
     results.total++;
     var result = jsdateformat.formatDate(inputDate, inputString);
@@ -50,6 +73,69 @@ function testFormatDate(inputDate, inputString, expected) {
     }
 }
 
+/**
+ * Tests the formatDate function with internationalization
+ * according to multi-input and an expected result.
+ * Failures are shown in the console.
+ *
+ * @var Date inputDate
+ * @var String inputString
+ * @var String expected
+ *
+ */
+function testFormatDateNL(inputDate, inputString, expected) {
+    results.total++;
+
+    jsdateformat.i18n.nl = {
+        ordinalSuffixes: {
+            0: 'de',
+            1: 'ste',
+            2: 'de',
+            3: 'de',
+            4: 'de',
+            5: 'de',
+            6: 'de',
+            7: 'de',
+            8: 'ste',
+            9: 'de',
+        },
+        monthNames: {
+            1: 'Januari',
+            2: 'Februari',
+            3: 'Maart',
+            4: 'April',
+            5: 'Mei',
+            6: 'Juni',
+            7: 'Juli',
+            8: 'Augustus',
+            9: 'September',
+            10: 'Oktober',
+            11: 'November',
+            12: 'December',
+        },
+        dayNames: {
+            1: 'Maandag',
+            2: 'Dinsdag',
+            3: 'Woensdag',
+            4: 'Donderdag',
+            5: 'Vrijdag',
+            6: 'Zaterdag',
+            7: 'Zondag'
+        }
+    };
+
+    jsdateformat.options.language = 'nl';
+    var result = jsdateformat.formatDate(inputDate, inputString);
+
+    if(result !== expected) {
+        results.bad++;
+        console.log('Input "' + inputString + '", expected "' + expected + '", but received "' + result + '"');
+    }
+}
+
+/**
+ * Export the test function so node can execute it
+ */
 module.exports = {
     test: test
 }

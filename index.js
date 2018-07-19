@@ -41,27 +41,18 @@
 
 */
 
-exports.formatDate = function(date, dateFormat) {
+var options = {
+    'language': 'en',
+}
+
+function formatDate(date, dateFormat) {
     /**
      * Day of the month
      */
     var j = date.getDate();     // Day of the month (1 - 31)
     var d = j < 10 ? '0'+j : j; // Day of the month (01 - 31)
 
-    var ordinalSuffixes = {
-        0: 'th',
-        1: 'st',
-        2: 'nd',
-        3: 'rd',
-        4: 'th',
-        5: 'th',
-        6: 'th',
-        7: 'th',
-        8: 'th',
-        9: 'th',
-    }
-
-    var S = ordinalSuffixes[j % 10];    // Ordinal suffix based on day of the month
+    var S = i18n[options.language].ordinalSuffixes[j % 10];    // Ordinal suffix based on day of the month
 
     /**
      * Year
@@ -74,17 +65,7 @@ exports.formatDate = function(date, dateFormat) {
      */
     var N = date.getDay();      // Day of the week (1 - 7)
 
-    var dayNames = {
-        1: 'Monday',
-        2: 'Tuesday',
-        3: 'Wednesday',
-        4: 'Thursday',
-        5: 'Friday',
-        6: 'Saturday',
-        7: 'Sunday'
-    }
-
-    var l = dayNames[N];        // Day of the week (text)
+    var l = i18n[options.language].dayNames[N];        // Day of the week (text)
     var D = l.substr(0,3);      // Short day of the week (text)
     var w = N - 1;              // Day of the week (0 - 6)
 
@@ -94,22 +75,8 @@ exports.formatDate = function(date, dateFormat) {
     var n = date.getMonth() +1; // Month of the year (1 - 12)
     var m = n < 10 ? '0'+n : n; // Month of the year (01 - 12)
 
-    var monthNames = {
-        1: 'January',
-        2: 'February',
-        3: 'March',
-        4: 'April',
-        5: 'May',
-        6: 'June',
-        7: 'July',
-        8: 'August',
-        9: 'September',
-        10: 'October',
-        11: 'November',
-        12: 'December',
-    }
 
-    var F = monthNames[n];                  // Month of the year (text)
+    var F = i18n[options.language].monthNames[n];                  // Month of the year (text)
     var M = F.substr(0,3);                  // Short month of the year (text)
     var t = new Date(Y, n, 0).getDate();    // Get the number of days in current month
 
@@ -154,4 +121,57 @@ exports.formatDate = function(date, dateFormat) {
     var formattedDate = dateFormat.replace(regex,function(match) {return replaceChars[match];})
 
     return formattedDate;
+}
+
+/**
+ * i18n
+ *
+ */
+var i18n = {
+    en: {
+        ordinalSuffixes: {
+            0: 'th',
+            1: 'st',
+            2: 'nd',
+            3: 'rd',
+            4: 'th',
+            5: 'th',
+            6: 'th',
+            7: 'th',
+            8: 'th',
+            9: 'th',
+        },
+        monthNames: {
+            1: 'January',
+            2: 'February',
+            3: 'March',
+            4: 'April',
+            5: 'May',
+            6: 'June',
+            7: 'July',
+            8: 'August',
+            9: 'September',
+            10: 'October',
+            11: 'November',
+            12: 'December',
+        },
+        dayNames: {
+            1: 'Monday',
+            2: 'Tuesday',
+            3: 'Wednesday',
+            4: 'Thursday',
+            5: 'Friday',
+            6: 'Saturday',
+            7: 'Sunday'
+        }
+    }
+}
+
+/**
+ * Export the function and i18n etc.
+ */
+module.exports = {
+    options: options,
+    formatDate: formatDate,
+    i18n: i18n
 }
