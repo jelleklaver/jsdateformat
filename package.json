@@ -1,6 +1,6 @@
 {
   "name": "@jelleklaver/jsdateformat",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Format JS dates in a PHP-like way",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,6 @@
   "bugs": {
     "url": "https://github.com/jelleklaver/jsdateformat/issues"
   },
-  "homepage": "https://github.com/jelleklaver/jsdateformat#readme"
+  "homepage": "https://github.com/jelleklaver/jsdateformat#readme",
+  "dependencies": {}
 }
