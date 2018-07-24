@@ -4,7 +4,7 @@
   "description": "Format JS dates in a PHP-like way",
   "main": "index.js",
   "scripts": {
-    "test": "node -e 'require(\"./test\").test()'"
+    "test": "node -e 'require(\"./tests/test\").test()'"
   },
   "repository": {
     "type": "git",

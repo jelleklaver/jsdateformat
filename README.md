@@ -13,8 +13,19 @@ Import it and play. The `formatDate()` function returns the formatted date.
 ```javascript
 var jsdateformat = require('@jelleklaver/jsdateformat');
 
-jsdateformat.formatDate(new Date(), 'd-m-Y H:i');       // 01-01-2000 13:01
+jsdateformat.formatDate(new Date(2000, 1, 1, 13, 1), 'd-m-Y H:i');      // 01-01-2000 13:01
+jsdateformat.now('d-m-Y H:i');                                          // 01-01-2018 12:00
 ```
+
+## Params
+#### `formatDate()`
+{date|string} `date` - The date you want formatted or the output string you want it to be formatted
+{string} `format` - The way you want the date to be formatted
+{boolean} `utc` - If local or UTC date should be returned, defaults to `false`
+
+#### `now()`
+{string} `format` - The way you want the date to be formatted
+{boolean} `utc` - If local or UTC date should be returned, defaults to `false`
 
 ## Internationalization
 Internationalization is possible for the ordinal suffixes, named days and named months. Currently the library only contains English to keep it small. To change the language, you'll first need to add your own translations.
@@ -106,21 +117,47 @@ Table mostly copied from the [PHP Date function](http://php.net/manual/en/functi
 
 As you've probably noticed, not all options from the PHP Date function are available yet. This function is work in progress and any help would be greatly appreciated.
 
+## UTC
+To get the formatted date in UTC
+```javascript
+jsdateformat.formatDate(new Date(), 'd-m-Y H:i', true);       // 01-01-2000 11:01
+```
+
 ## Testing
 You can test the library using `npm test`. It should show the results like this:
 ```bash
-Tests starting....
-Tested: 24
-Passed: 24
+--------------------
+
+Testing formatDate
+...................
+Testing UTC
+.
+Testing i18n
+.....
+
+--------------------
+Tested: 25
+Passed: 25
 Failed: 0
 ```
 Or when a mistake was made:
 ```bash
-Tests starting....
-Input "l", expected "Thursday", but received "Wednesday"
-Tested: 24
-Passed: 23
+--------------------
+
+Testing formatDate
+........
+testFormatDate: Input date "Wed Mar 01 2000 04:05:00 GMT+0100 (CET)", "F", expected "Marach", but received "March".
+...........
+Testing UTC
+.
+Testing i18n
+.....
+
+--------------------
+Tested: 26
+Passed: 25
 Failed: 1
+--------------------
 ```
 
 ## License (ISC)

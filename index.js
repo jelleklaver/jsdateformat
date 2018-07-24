@@ -46,41 +46,43 @@ const options = {
  *
  * @param {date} date - The date to be formatted
  * @param {string} dateFormat - The output format
+ * @param {boolean} utc - Whether to use utc for output
  *
  * @returns {string} - Formatted date
  */
-function formatDate (date, dateFormat) {
+function formatDate (date, dateFormat, utc = false) {
     const
+        get = utc ? 'getUTC' : 'get',
         shortEnd = 3,
         shortStart = 0,
         modulus = 10,
 
-        yearFull = date.getFullYear(),
+        yearFull = date[`${get}FullYear`](),
         yearShort = yearFull.toString().substr(-2),
 
-        month = date.getMonth() + 1,
+        month = date[`${get}Month`]() + 1,
         monthNamed = i18n[options.language].monthNames[month],
         monthNamedShort = monthNamed.substr(shortStart, shortEnd),
         monthPrefixed = month < modulus ? `0${month}` : month,
 
-        dateOfMonth = date.getDate(),
+        dateOfMonth = date[`${get}Date`](),
         dateOfMonthPrefixed = dateOfMonth < modulus ? `0${dateOfMonth}` : dateOfMonth,
         daysInMonth = new Date(yearFull, month, 0).getDate(),
         ordinalSuffix = i18n[options.language].ordinalSuffixes[dateOfMonth % modulus],
 
-        dayOfTheWeekISO = date.getDay(),
+        dayOfTheWeekISO = date[`${get}Day`](),
         dayOfTheWeek = dayOfTheWeekISO - 1,
         dayOfTheWeekNamed = i18n[options.language].dayNames[dayOfTheWeekISO],
         dayOfTheWeekNamedShort = dayOfTheWeekNamed.substr(shortStart, shortEnd),
 
-        hours = date.getHours(),
+        hours = date[`${get}Hours`](),
         hoursPrefixed = hours < modulus ? `0${hours}` : hours,
-        minutes = date.getMinutes(),
+        minutes = date[`${get}Minutes`](),
         minutesPrefixed = minutes < modulus ? `0${minutes}` : minutes,
 
-        seconds = date.getSeconds(),
+        seconds = date[`${get}Seconds`](),
         secondsPrefixed = seconds < modulus ? `0${seconds}` : seconds,
-        milliseconds = date.getMilliseconds();
+        milliseconds = date[`${get}Milliseconds`]();
 
     // Replace
     const replaceChars = {
@@ -117,10 +119,23 @@ function formatDate (date, dateFormat) {
 }
 
 /**
+ * Formats now using formatDate
+ *
+ * @param {string} dateFormat - The output format
+ * @param {boolean} utc - Whether to use UTC date for output
+ *
+ * @returns {string} - Formatted date
+ */
+function now (dateFormat, utc = false) {
+    return formatDate(new Date, dateFormat, utc);
+}
+
+/**
  * Export the formatDate function and i18n and options objects
  */
 module.exports = {
     formatDate,
     i18n,
+    now,
     options
 };
