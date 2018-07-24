@@ -1,6 +1,6 @@
 {
   "name": "@jelleklaver/jsdateformat",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Format JS dates in a PHP-like way",
   "main": "index.js",
   "scripts": {
