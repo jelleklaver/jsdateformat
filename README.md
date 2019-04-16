@@ -1,9 +1,15 @@
-# @jelleklaver/jsdateformat
-Format JS dates in a PHP-like way. A tiny JS library to easily prettify dates.
+# Tiny PHP and Python like date formatting library
+[![](https://badgen.net/bundlephobia/minzip/@jelleklaver/jsdateformat)](https://bundlephobia.com/result?p=@jelleklaver/jsdateformat)
+[![](https://badgen.net/david/dep/jelleklaver/jsdateformat)](https://npmjs.com/package/@jelleklaver/jsdateformat)
+[![](https://badgen.net/github/open-issues/jelleklaver/jsdateformat)](https://github.com/jelleklaver/jsdateformat/issues)
+[![](https://badgen.net/npm/v/@jelleklaver/jsdateformat?icon=npm)](https://npmjs.com/package/@jelleklaver/jsdateformat)
+[![](https://badgen.net/npm/dt/@jelleklaver/jsdateformat?icon=npm)](https://npmjs.com/package/@jelleklaver/jsdateformat)
+[![](https://badgen.net/github/license/jelleklaver/jsdateformat)](https://github.com/jelleklaver/jsdateformat/blob/master/LICENSE.md)
+
+Format JS dates in a PHP and Python like way. A tiny JS library to easily prettify dates.
 
 ## Install
 This repo is available via npm ([jsdateformat](https://www.npmjs.com/package/@jelleklaver/jsdateformat))
-
 ```bash
 npm install @jelleklaver/jsdateformat --save
 ```
@@ -85,7 +91,7 @@ jsdateformat.i18n.nl = {
 ```
 
 ### Set language
-To change the language, set the `jsdateformat.options.langauge` option. 
+To change the language, set the `jsdateformat.options.langauge` option.
 
 ```javascript
 jsdateformat.options.language = 'nl';
